@@ -1,0 +1,26 @@
+<h1>Login page</h1>
+
+<%= form_tag :controller => 'login', :action => 'index' do%>
+
+
+    <% if(session[:login_fail]==1)  %>
+     <script language = "javascript">
+    Window.alert("Enter the correct credentials.");
+        </script>
+        <% end %>
+
+    <p>
+      <label for = "id">unity id</label>
+      <%= text_field_tag :id,params[:id] %>  <br/>
+      <label for = "password">password</label>
+      <%= password_field_tag :password,params[:password] %>
+    </p>
+
+    <p>
+      <%= submit_tag "Login"  %>
+    </p>
+
+   <p>
+     <%= link_to 'Sign Up', new_user_path %>
+   </p>
+<%end %>

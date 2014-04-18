@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Description:</b>
+  <%= @post.description %>
+
+</p>
+
+<h2>Comments</h2>
+<table>
+<% @post.comms.each do |comment| %>
+    <p>
+
+
+    <tr>
+     <td><strong>Comment:</strong> <%= comment.content %>    </td>
+
+
+      <%comm_vote = CommVote.find(:all, :conditions=>{:comm_id=>comment.id,:user_id=> session[:id1]})%>
+      <% if comment.user_id != session[:id1] %>
+      <%if !comm_vote.empty? %>
+          <td><%=button_to 'DownVote',:action => 'subtract_comment_vote', :id3 => comment.id, :id5 => @post.id  %></td>
+      <% else %>
+          <td><%=button_to 'UpVote',:action => 'add_comment_vote', :id3 => comment.id, :id4 => @post.id  %></td>
+      <% end %>
+      <% end %>
+      <td><%=comment.votes%></td>
+      <% if comment.user_id == session[:id1] %>
+          <td><%= link_to 'Delete',:controller =>'comms', :action => 'comm_delete', :id8 => @post.id, :id9 => comment.id %></td>
+          <% end %>
+  <% end %>
+
+
+    <tr>
+
+    </p>
+</table>
+<h2>Add a comment:</h2>
+<%= form_for([@post, @post.comms.build]) do |f| %>
+    <p>
+      <%= f.label :body %><br />
+      <%= f.text_area :content %>
+    </p>
+    <p>
+      <%= f.submit %>
+    </p>
+<% end %>
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>

@@ -1,0 +1,29 @@
+<h1>Posts report</h1>
+<table>
+  <tr>
+    <th>Title</th>
+    <th>User</th>
+    <th>Created_At</th>
+    <th>Category</th>
+
+    <th>Votes</th>
+  </tr>
+
+  <% @postresult.each do |post| %>
+
+      <tr>
+        <td><%= post.title%></td>
+
+
+        <% user = User.find(post.user_id)  %>
+        <td><%= user.unityid %></td>
+
+        <td><%= post.created_at %></td>
+        <% cat = Category.find(post.category_id) %>
+        <td><%= cat.name %></td>
+        <td><%=post.popularity %></td>
+      </tr>
+  <% end %>
+</table>
+<%= link_to 'Back', :controller => 'posts', :action => 'report' %>
+<br />

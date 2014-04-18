@@ -1,0 +1,6 @@
+<%= form_tag :controller => 'posts', :action => 'report_generate' do%>
+    <label>How many days ?</label>
+    <%= text_field_tag :days, params[:days] %>  <br/>
+    <%= submit_tag "Generate report" %>
+<% end %>
+ <%= link_to 'Back', :controller => 'categories', :action =>'index' %>

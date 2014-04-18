@@ -1,0 +1,40 @@
+
+
+
+
+<table>
+  <% if @post!= nil%>
+  <% @post.each do |post| %>
+
+      <tr>
+        <% user1 = User.find(post.user_id) %>
+
+        <td><%= post.title%></td>
+        <td><%= user1.unityid %></td>
+
+
+
+        <td><%= link_to 'Show', post %></td>
+        <% if(post.user_id == session[:id1])%>
+            <td><%= link_to 'Edit', edit_post_path(post) %></td>
+            <td><%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% else %>
+            <td></td>
+            <td></td>
+            <%post_vote=PostVote.find(:all, :conditions=>{:post_id=>post.id,:user_id=> session[:id1]})%>
+            <%if !post_vote.empty? %>
+                <td><%=button_to 'DownVote',:action => 'subtract_vote', :id2 => post.id  %></td>
+            <% else %>
+                <td><%=button_to 'UpVote',:action => 'add_vote', :id => post.id  %></td>
+            <% end %>
+            <td><%=post.votes%></td>
+        <% end %>
+      </tr>
+
+
+
+  <% end %>
+      <% else %>
+  <p>No search results returned</p>
+      <% end %>
+</table>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BackChannelApp2</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<h1>BACKCHANNEL APP</h1>
+<% if session[:username] %>
+<h2>Logged in as <%= session[:username] %></h2>
+<%= link_to 'logout', :controller=>'login', :action=>'logout' %>
+    <% end %>
+    <h2>Search</h2>
+    <%= form_tag :controller => 'posts', :action => 'show_search' do%>
+    <label>Search posts</label>
+    <%= text_field_tag :search, params[:search] %>  <br/>
+    <label> Search by :</label>
+    <%= radio_button_tag 'search_by', 'unityid' %> <label>unityid</label>
+    <%= radio_button_tag 'search_by', 'category' %> <label>category</label>
+    <%= radio_button_tag 'search_by', 'tag' %>   <label>tag</label>
+    <%= radio_button_tag 'search_by', 'content' %>  <label>content</label>
+    <%= submit_tag "Search" %>
+<% end %>
+<%= yield %>
+
+
+</body>
+</html>
